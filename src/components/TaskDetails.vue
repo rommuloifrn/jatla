@@ -18,6 +18,7 @@
         stroke-linecap="round"
         stroke-linejoin="round"
         class="lucide lucide-check-icon lucide-check block"
+        :class="{'text-green-500': task.completed}"
       >
         <path d="M20 6 9 17l-5-5" />
       </svg>
