@@ -2,16 +2,18 @@
 import { useTaskStore } from './stores/taskStore'
 import TaskDetails from './components/TaskDetails.vue'
 import { ref } from 'vue'
+import TaskForm from './components/TaskForm.vue'
 
 export default {
-  components: { TaskDetails },
+  components: { TaskDetails, TaskForm },
   setup() {
     const taskStore = useTaskStore()
 
     const filter = ref('all')
 
     return {
-      taskStore, filter
+      taskStore,
+      filter,
     }
   },
 }
@@ -25,11 +27,7 @@ export default {
     </header>
 
     <div class="w-[40em]">
-      <input
-        class="w-full p-4 border border-zinc-500 border-r-3 border-b-4 rounded-md focus:border-zinc-200 focus:outline-none transition"
-        type="text"
-        placeholder="New task"
-      />
+      <TaskForm />
     </div>
 
     <nav>
