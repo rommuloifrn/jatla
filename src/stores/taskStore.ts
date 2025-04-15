@@ -6,13 +6,8 @@ export const useTaskStore = defineStore('taskStore', {
     state: () => ({
 
         // Dá pra guardar vários valores aqui nesse dicionário
-        tasks: [
-            { id: 1, title: 'Task 1', completed: false },
-            { id: 2, title: 'Task 2', completed: true },
-            { id: 3, title: 'Task 3', completed: false },
-            { id: 4, title: 'Task 4', completed: true },
-            { id: 5, title: 'Task 5', completed: false },
-        ],
+        tasks: [] as Task[],
+        isLoading: false,
 
         randomValue: "oi mano"
     }),
@@ -33,6 +28,15 @@ export const useTaskStore = defineStore('taskStore', {
         }
     },
     actions: {
+        async getTasks() {
+            this.isLoading = true;
+            // Simulando um delay
+            const response = await fetch('http://localhost:3000/tasks')
+            const data = await response.json()
+
+            this.tasks = data
+            this.isLoading = false
+        },
         addTask(task: Task) {
             this.tasks.push(task);
 
