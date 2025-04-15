@@ -52,6 +52,7 @@ export default {
         <TaskDetails :task="task" />
       </div>
     </div>
+    <button @click="taskStore.$reset">reset state</button>
   </main>
 </template>
 
