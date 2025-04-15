@@ -37,21 +37,52 @@ export const useTaskStore = defineStore('taskStore', {
             this.tasks = data
             this.isLoading = false
         },
-        addTask(task: Task) {
+        async addTask(task: Task) {
             this.tasks.push(task);
 
+            const response = await fetch('http://localhost:3000/tasks', {
+                method: 'POST',
+                body: JSON.stringify(task),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (!response.ok) {
+                console.error('Failed to add task:', response.statusText);
+            }
         },
 
-        deleteTask(id: number) {
+        async deleteTask(id: number) {
             this.tasks = this.tasks.filter(task => {
                 return task.id !== id;
             });
+
+            const response = await fetch('http://localhost:3000/tasks/'+ id, {
+                method: 'DELETE',
+            })
+
+            if (!response.ok) {
+                console.error('Failed to add task:', response.statusText);
+            }
         },
 
-        toggleDone(id: number) {
+        async toggleDone(id: number) {
             const task = this.tasks.find(task => task.id === id);
 
             task!.completed = !task!.completed;
+
+            const response = await fetch('http://localhost:3000/tasks/'+ id, {
+                method: 'PATCH',
+                body: JSON.stringify({'completed':task?.completed}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (!response.ok) {
+                console.error('Failed to add task:', response.statusText);
+            }
         }
     }
 })

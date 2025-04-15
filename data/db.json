@@ -1,22 +1,15 @@
 {
-    "tasks": [
-        {
-            "id": 1,
-            "title": "Fazer saas de ovo",
-            "description": "Description for Task 1",
-            "completed": false
-        },
-        {
-            "id": 2,
-            "title": "Comprar pão",
-            "description": "Description for Task 2",
-            "completed": true
-        },
-         {
-            "id": 3,
-            "title": "Ajudar Radmila com Django",
-            "description": "Description for Task 3",
-            "completed": false
-        }
-    ]
+  "tasks": [
+    {
+      "id": "2",
+      "title": "Comprar pão",
+      "description": "Description for Task 2",
+      "completed": true
+    },
+    {
+      "id": 7341,
+      "title": "aaa",
+      "completed": false
+    }
+  ]
 }
