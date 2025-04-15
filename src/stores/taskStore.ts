@@ -36,6 +36,18 @@ export const useTaskStore = defineStore('taskStore', {
         addTask(task: Task) {
             this.tasks.push(task);
 
+        },
+
+        deleteTask(id: number) {
+            this.tasks = this.tasks.filter(task => {
+                return task.id !== id;
+            });
+        },
+
+        toggleDone(id: number) {
+            const task = this.tasks.find(task => task.id === id);
+
+            task!.completed = !task!.completed;
         }
     }
 })
