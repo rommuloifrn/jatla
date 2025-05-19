@@ -30,9 +30,8 @@ export const useTaskStore = defineStore('taskStore', {
     actions: {
         async getTasks() {
             this.isLoading = true;
-            // Simulando um delay
-            const response = await fetch('http://localhost:3000/tasks')
-            const data = await response.json()
+            
+            let data = JSON.parse(localStorage.getItem('tasks') || '[]') as Task[];
 
             this.tasks = data
             this.isLoading = false
@@ -40,17 +39,7 @@ export const useTaskStore = defineStore('taskStore', {
         async addTask(task: Task) {
             this.tasks.push(task);
 
-            const response = await fetch('http://localhost:3000/tasks', {
-                method: 'POST',
-                body: JSON.stringify(task),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            if (!response.ok) {
-                console.error('Failed to add task:', response.statusText);
-            }
+            localStorage.setItem('tasks', JSON.stringify(this.tasks));
         },
 
         async deleteTask(id: number) {
@@ -58,13 +47,7 @@ export const useTaskStore = defineStore('taskStore', {
                 return task.id !== id;
             });
 
-            const response = await fetch('http://localhost:3000/tasks/'+ id, {
-                method: 'DELETE',
-            })
-
-            if (!response.ok) {
-                console.error('Failed to add task:', response.statusText);
-            }
+            localStorage.setItem('tasks', JSON.stringify(this.tasks));
         },
 
         async toggleDone(id: number) {
@@ -72,17 +55,7 @@ export const useTaskStore = defineStore('taskStore', {
 
             task!.completed = !task!.completed;
 
-            const response = await fetch('http://localhost:3000/tasks/'+ id, {
-                method: 'PATCH',
-                body: JSON.stringify({'completed':task?.completed}),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            if (!response.ok) {
-                console.error('Failed to add task:', response.statusText);
-            }
+            localStorage.setItem('tasks', JSON.stringify(this.tasks));
         }
     }
 })
